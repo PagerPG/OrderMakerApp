@@ -15,6 +15,11 @@
         public int ClientId { get; set; }
         public List<OrderLine> OrderLines { get; set; }
 
+        public void AddOrderLine(int quantityId, int productId)
+        {
+            OrderLines.Add(new OrderLine(productId, quantityId));
+        }
+
         private string GenerateOrderName() => $"Order-{DateTime.Now.ToShortDateString()}"; //OrderName = Order-19.12.2022
     }
 
