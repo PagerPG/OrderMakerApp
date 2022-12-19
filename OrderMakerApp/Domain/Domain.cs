@@ -2,9 +2,9 @@
 {
     public class Order
     {
-        public Order(string orderNumber, int clientId)
+        public Order(int clientId)
         {
-            OrderNumber = orderNumber;
+            OrderNumber = GenerateOrderName();
             ClientId = clientId;
             OrderLines = new List<OrderLine>();
         }
@@ -14,6 +14,8 @@
         public string OrderNumber { get; set; }
         public int ClientId { get; set; }
         public List<OrderLine> OrderLines { get; set; }
+
+        private string GenerateOrderName() => $"Order-{DateTime.Now.ToShortDateString()}"; //OrderName = Order-19.12.2022
     }
 
     public class OrderLine
