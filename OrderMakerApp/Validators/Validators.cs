@@ -14,6 +14,9 @@ namespace OrderMakerApp.Validators
 
             if (order.OrderLines.Count == 0)
                 throw new Exception("Order must have order lines.");
+
+            var lineValidator = new OrderLineValidator();
+            order.OrderLines.ForEach(lineValidator.Validate);
         }
     }
 
