@@ -5,7 +5,7 @@
         public Order(int clientId)
         {
             OrderNumber = GenerateOrderName();
-            ClientId = clientId == 0 ? throw new Exception("Not valid ClientId.") : clientId;
+            ClientId = clientId;
             OrderLines = new List<OrderLine>();
         }
 
@@ -22,8 +22,8 @@
     {
         public OrderLine(int productId, int quantity)
         {
-            ProductId = productId == 0 ? throw new Exception("Not valid ProductId.") : productId;
-            Quantity = quantity <= 0 ? throw new Exception("Not valid Quantity.") : quantity;
+            ProductId = productId;
+            Quantity = quantity;
         }
 
         public int OrderLineId { get; set; }
@@ -35,56 +35,25 @@
     {
         public Product(string productName)
         {
-            ProductName = ValidateName(productName);
+            ProductName = productName;
         }
 
         public int ProductId { get; set; }
         public string ProductName { get; set; }
-
-        private static string ValidateName(string productName)
-        {
-            if (string.IsNullOrEmpty(productName))
-                throw new Exception("Not valid ProductName.");
-
-            if (productName.Length > 100)
-                throw new Exception("Too long ProductName. Shoud has less that 100 chars.");
-
-            return productName;
-        }
     }
 
     public class Client
     {
         public Client(string clientName, string email)
         {
-            ClientName = ValidateName(clientName);
-            Email = ValidateEmail(email);
+            ClientName = clientName;
+            Email = email;
         }
 
         public int ClientId { get; set; }
         public string ClientName { get; set; }   
         public string Email { get; set; }
 
-        private static string ValidateName(string clientName)
-        {
-            if (string.IsNullOrEmpty(clientName))
-                throw new Exception("Not valid Client name.");
-
-            if (clientName.Length > 100)
-                throw new Exception("Too long Client Name. Shoud has less that 100 chars.");
-
-            return clientName;
-        }
-
-        private static string ValidateEmail(string email)
-        {
-            if (string.IsNullOrEmpty(email))
-                throw new Exception("Not valid email.");
-
-            if (!email.Contains('@'))
-                throw new Exception("Invalid email");
-
-            return email;
-        }
+       
     }
 }
