@@ -1,6 +1,7 @@
 ﻿using OrderMakerApp.Commands;
 using OrderMakerApp.Domain;
 using OrderMakerApp.Repositories;
+using OrderMakerApp.Validators;
 
 namespace OrderMakerApp.Services
 {
@@ -22,7 +23,9 @@ namespace OrderMakerApp.Services
             var order = new Order(client.ClientId);
 
             foreach (var (productId, quantity) in command.OrderedProducts)
-                order.AddOrderLine(productId, quantity);
+                order.AddOrderLine(quantity, productId);
+
+            new OrderValidator().Validate(order);
 
             repository.Save(order);
         }
