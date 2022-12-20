@@ -84,10 +84,6 @@
         }
 
         public ProductId ProductId { get; set; }
-        public String100 ProductName { get; set; }
-    }
-
-        public ProductId ProductId { get; set; }
         public ProductName ProductName { get; set; }
     }
 
