@@ -23,7 +23,7 @@ namespace OrderMakerApp.Services
             var order = new Order(client.ClientId);
 
             foreach (var (productId, quantity) in command.OrderedProducts)
-                order.AddOrderLine(quantity, productId);
+                order.AddOrderLine((PositiveNumber)quantity, (ProductId)productId);
 
             new OrderValidator().Validate(order);
 

@@ -1,64 +1,94 @@
 ﻿namespace OrderMakerApp.Domain
 {
+    public record OrderId : Id
+    {
+        public OrderId(int id) : base(id) { }
+
+        public static explicit operator int(OrderId id) => id.Value;
+        public static explicit operator OrderId(int id) => new(id);
+    }
+
     public class Order
     {
-        public Order(int clientId)
+        public Order(ClientId clientId)
         {
             OrderNumber = GenerateOrderName();
             ClientId = clientId;
             OrderLines = new List<OrderLine>();
         }
 
-        public int OrderId { get; set; }
+        public OrderId OrderId { get; set; }
 
-        public string OrderNumber { get; set; }
-        public int ClientId { get; set; }
+        public String100 OrderNumber { get; set; }
+        public ClientId ClientId { get; set; }
         public List<OrderLine> OrderLines { get; set; }
 
-        public void AddOrderLine(int quantityId, int productId)
+        public void AddOrderLine(PositiveNumber quantityId, ProductId productId)
         {
             OrderLines.Add(new OrderLine(productId, quantityId));
         }
 
-        private string GenerateOrderName() => $"Order-{DateTime.Now.ToShortDateString()}"; //OrderName = Order-19.12.2022
+        private String100 GenerateOrderName() => (String100)$"Order-{DateTime.Now.ToShortDateString()}"; //OrderName = Order-19.12.2022
+    }
+
+    public record OrderLineId : Id
+    {
+        public OrderLineId(int id) : base(id) { }
+
+        public static explicit operator int(OrderLineId id) => id.Value;
+        public static explicit operator OrderLineId(int id) => new(id);
     }
 
     public class OrderLine
     {
-        public OrderLine(int productId, int quantity)
+        public OrderLine(ProductId productId, PositiveNumber quantity)
         {
             ProductId = productId;
             Quantity = quantity;
         }
 
-        public int OrderLineId { get; set; }
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
+        public OrderLineId OrderLineId { get; set; }
+        public ProductId ProductId { get; set; }
+        public PositiveNumber Quantity { get; set; }
+    }
+
+    public record ProductId : Id
+    {
+        public ProductId(int id) : base(id) { }
+
+        public static explicit operator int(ProductId id) => id.Value;
+        public static explicit operator ProductId(int id) => new(id);
     }
 
     public class Product
     {
-        public Product(string productName)
+        public Product(String100 productName)
         {
             ProductName = productName;
         }
 
-        public int ProductId { get; set; }
-        public string ProductName { get; set; }
+        public ProductId ProductId { get; set; }
+        public String100 ProductName { get; set; }
+    }
+
+    public record ClientId : Id
+    {
+        public ClientId(int id) : base(id) { }
+
+        public static explicit operator int(ClientId id) => id.Value;
+        public static explicit operator ClientId(int id) => new(id);
     }
 
     public class Client
     {
-        public Client(string clientName, string email)
+        public Client(String100 clientName, Email email)
         {
             ClientName = clientName;
             Email = email;
         }
 
-        public int ClientId { get; set; }
-        public string ClientName { get; set; }   
-        public string Email { get; set; }
-
-       
+        public ClientId ClientId { get; set; }
+        public String100 ClientName { get; set; }   
+        public Email Email { get; set; }       
     }
 }

@@ -63,8 +63,8 @@
         {
             this.minValue = minValue;
 
-            if (minValue.HasValue && Value < minValue)
-                throw new Exception("Should be higher than {}");
+            if (this.minValue.HasValue && Value < this.minValue)
+                throw new Exception($"Should be higher than {this.minValue}");
 
             Value = value;
         }
